@@ -15,10 +15,10 @@ endif;
         </header>
 
         <?php
-        $getPage = (!empty($Link->getLocal()[2]) ? $Link->getLocal()[2] : 1);
+        $getPage = (int)(!empty($Link->getLocal()[2]) ? $Link->getLocal()[2] : 1);
         $Pager = new Pager(HOME . '/categoria/' . $category_name . '/');
         $Pager->ExePager($getPage, 2);
-
+        
         $readCat = new WsPosts();
         $readCat->Execute()->Query("post_status = 1 AND (post_category = :cat OR post_cat_parent = :cat) ORDER BY post_date DESC LIMIT :limit OFFSET :offset", "cat={$category_id}&limit={$Pager->getLimit()}&offset={$Pager->getOffset()}", true);
         if (!$readCat->Execute()->getResult()):

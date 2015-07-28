@@ -91,6 +91,19 @@ class Seo {
                     $ReadSeo->Execute()->update($ReadSeo->Execute()->getDados(), 'category_id');
                 endif;
                 break;
+            //SEO::PESQUISA
+            case 'pesquisa':
+                $ReadSeo = new WsPosts;
+                $ReadSeo->Execute()->Query("post_status = 1 AND (post_title LIKE '%' :link '%' OR post_content LIKE '%' :link '%')", "link={$this->Link}");
+
+                if (!$ReadSeo->Execute()->getResult()):
+                    $this->seoData = null;
+                    $this->seoTags = null;
+                else:
+                    $this->seoData['count'] = $ReadSeo->Execute()->getRowCount();
+                    $this->Data = ["Pesquisa por: \"{$this->Link}\"" . ' - ' . SITENAME, "Sua pesquisa por {$this->Link} retornou {$this->seoData['count']} resultados!", HOME . "/pesquisa/{$this->Link}", INCLUDE_PATH . '/images/site.png'];
+                endif;
+                break;
 
             //SEO:: INDEX
             case 'index':

@@ -21,7 +21,7 @@ require('../_app/Config.inc.php');
 
                 <?php
                 $login = new Login(3);
-                
+
                 if ($login->CheckLogin()):
                     header('Location: painel.php');
                 endif;
@@ -47,7 +47,6 @@ require('../_app/Config.inc.php');
                     endif;
                 endif;
                 ?>
-
                 <form name="AdminLoginForm" action="" method="post">
                     <label>
                         <span>E-mail:</span>

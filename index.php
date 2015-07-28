@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <?php
+ob_start();
 require_once './_app/Config.inc.php';
 ?>
 <html lang="pt-br">
@@ -50,3 +51,6 @@ require_once './_app/Config.inc.php';
     <script src="<?= HOME ?>/_cdn/_scripts.conf.js"></script>
 
 </html><!--NTk4Nw==-->
+<?php
+ob_end_flush();
+?>

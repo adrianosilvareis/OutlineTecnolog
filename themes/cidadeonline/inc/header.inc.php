@@ -29,6 +29,13 @@
                 <li><a href="<?= HOME ?>/empresas/onde-se-divertir" title="">Onde Se Divertir</a></li>
 
                 <li class="search">
+                    <?php
+                    $search = filter_input(INPUT_POST, 's', FILTER_DEFAULT);
+                    if (!empty($search)):
+                        $search = strip_tags(trim(urlencode($search)));
+                        header('Location: ' . HOME . '/pesquisa/' . $search);
+                    endif;
+                    ?>
                     <form name="search" action="" method="post">
                         <input class="fls" type="text" name="s" />
                         <input class="btn" type="submit" name="sendsearch" value="" />
@@ -37,6 +44,6 @@
 
             </ul>
         </nav> <!-- main nav -->
-        
+
     </div><!-- Container Header -->
 </header> <!-- main header -->
