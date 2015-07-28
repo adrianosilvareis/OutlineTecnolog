@@ -1,44 +1,56 @@
 <!--HOME CONTENT-->
+<?php
+$EmpLink = $Link->getData()['empresa_link'];
+$Cat = $Link->getData()['empresa_cat'];
+?>
 <div class="site-container">
 
     <section class="page_empresas">
         <header class="emp_header">
-            <h2>ONDE COMER</h2>
-            <p class="tagline">Conheça as empresas cadastradas no ramo de alimentos e veja onde comer em sua cidade! Encontra restaurantes, pizzarias, lancherias e muito mais!</p>
+            <h2><?= $Cat; ?></h2>
+            <p class="tagline">Conheça as empresas cadastradas no seu guia online. Encontre aqui empresas <?= $Cat; ?></p>
         </header>
 
-        <?php for ($cat = 1; $cat <= 5; $cat++): ?>
-            <article>
-                <!--120x60-->
-                <header>
-                    <div class="img">
-                        <img alt="UPINSIDE TECNOLOGIA" title="UPINSIDE TECNOLOGIA" src="<?= INCLUDE_PATH ?>/_tmp/emla_<?= $cat ?>.png" />
-                    </div>
-                    <hgroup>
-                        <h1>UpInside Tecnologia</h1>
-                        <h2>Treinamentos Profissionais em TI</h2>
-                    </hgroup>
-                </header>
+        <?php
+        $getPage = (!empty($Link->getLocal()[2]) ? $Link->getLocal()[2] : 1);
+        $Pager = new Pager(HOME . '/empresas/' . $EmpLink . '/');
+        $Pager->ExePager($getPage, 5);
 
-                <address>Em: Soledade/RS</address>
-                <a class="btn" href="<?= HOME ?>/empresa/nome_da_empresa" title="Ver detalhes de NOME_DA_EMPRESA">Ver Detalhes</a>
-            </article>
-        <?php endfor; ?>
+        $readEmp = new Controle();
+        $readEmp->setTable('app_empresas');
+        $readEmp->Query("empresa_status = 1 AND empresa_categoria = :cat ORDER BY empresa_date DESC LIMIT :limit OFFSET :offset", "cat={$EmpLink}&limit={$Pager->getLimit()}&offset={$Pager->getOffset()}", true);
+        if (!$readEmp->getResult()):
+            $Pager->ReturnPage();
+            WSErro("Desculpe, ainda não existem empresas cadastradas {$Cat}, favor volte depois", WS_INFOR);
+        else:
+            $View = new View;
+            $tpl = $View->Load('empresa_list');
+            foreach ($readEmp->getResult() as $emp):
+                //encontra cidade
+                $readEmp->setTable('app_cidades');
+                $readEmp->find("cidade_id={$emp->empresa_cidade}");
+                $cidade = $readEmp->getResult()->cidade_nome;
+                $emp->empresa_cidade = $cidade;
 
-        <footer>
-            <nav class="paginator">
-                <h2>Mais resultados para NOME DA CATEGORIA</h2>
-                <ul>
-                    <li><a href="">Primeira</a></li>
-                    <li><a href="">1</a></li>
-                    <li><a href="">2</a></li>
-                    <li><span class="atv">3</span></li>
-                    <li><a href="">4</a></li>
-                    <li><a href="">5</a></li>
-                    <li><a href="">Última</a></li>
-                </ul>
-            </nav>
-        </footer>
+                //encontra estado
+                $readEmp->setTable('app_estados');
+                $readEmp->find("estado_id={$emp->empresa_uf}");
+                $estado = $readEmp->getResult()->estado_uf;
+                $emp->empresa_uf = $estado;
+
+                $View->Show((array) $emp, $tpl);
+            endforeach;
+            
+            //barra de navegação
+            echo '<footer>';
+            echo '<nav class="paginator">';
+            echo '<h2>Mais resultados para NOME DA CATEGORIA</h2>';
+            $Pager->ExePaginator("app_empresas", "empresa_status = 1 AND empresa_categoria = :cat", "cat={$EmpLink}");
+            echo $Pager->getPaginator();
+            echo '</nav>';
+            echo '</footer>';
+        endif;
+        ?>
 
     </section>
 

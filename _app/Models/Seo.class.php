@@ -105,6 +105,43 @@ class Seo {
                 endif;
                 break;
 
+            //SEO:: EMPRESAS
+            case 'empresas':
+                $Name = ucwords(str_replace("-", " ", $this->Link));
+                $this->seoData = ['empresa_link' => $this->Link, 'empresa_cat' => $Name];
+                $this->Data = ["Empresas {$this->Link}" . SITENAME, "Confira o guia completo de sua cidade, e encontra empresas {$this->Link}", HOME . '/empresas/' . $this->Link, INCLUDE_PATH . '/images/site.png'];
+                break;
+
+            //SEO:: EMPRESA SINGLE
+            case 'empresa':
+                $Admin = (isset($_SESSION['userlogin']['user_level']) && $_SESSION['userlogin']['user_level'] == 3 ? true : false);
+                $Check = ($Admin ? '' : 'empresa_status = 1 AND ');
+
+                $ReadSeo = new AppEmpresas();
+                $ReadSeo->setEmpresa_name($this->Link);
+                $ReadSeo->Execute()->Query("{$Check} #empresa_name#");
+
+                if (!$ReadSeo->Execute()->getResult()):
+                    $this->seoData = null;
+                    $this->seoTags = null;
+                else:
+                    extract((array) $ReadSeo->Execute()->getResult()[0]);
+                    $this->seoData = (array) $ReadSeo->Execute()->getResult()[0];
+                    $this->Data = [$empresa_title . ' - ' . SITENAME, $empresa_sobre, HOME . "/empresa/{$empresa_name}", HOME . "/uploads/{$empresa_capa}"];
+
+                    //empresa:: conta views da empresa
+                    $ReadSeo->setEmpresa_id($empresa_id);
+                    $ReadSeo->setEmpresa_views($empresa_views + 1);
+                    $ReadSeo->setEmpresa_last_view(date('Y-m-d H:i:s'));
+                    $ReadSeo->Execute()->update($ReadSeo->Execute()->getDados(), 'empresa_id');
+                endif;
+                break;
+
+            //SEO:: CADASTRA EMPRESA
+            case 'cadastra-empresa':
+                $this->Data = ["Cadastre sua Empresa - " . SITENAME, "Página modelo para cadastro de empresas via Front-End do curso Work Series - PHP Orientado a Objetos!", HOME . '/cadastra-empresa/' . $this->Link, INCLUDE_PATH . '/images/site.png'];
+                break;
+
             //SEO:: INDEX
             case 'index':
                 $this->Data = [SITENAME . ' - Seu Guia de empresas, eventos e baladas!', SITEDESC, HOME, INCLUDE_PATH . '/images/site.png'];

@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 require('../_app/Config.inc.php');
 ?>
@@ -66,3 +67,5 @@ require('../_app/Config.inc.php');
 
     </body>
 </html>
+<?php
+ob_end_flush();

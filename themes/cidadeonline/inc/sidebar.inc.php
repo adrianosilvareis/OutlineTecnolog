@@ -1,4 +1,6 @@
 <?php
+$View = (!empty($View) ? $View : $View = new View());
+$post_id = (!empty($post_id) ? $post_id : null);
 $side = new Controle;
 $tpl_p = $View->Load('article_p');
 ?>

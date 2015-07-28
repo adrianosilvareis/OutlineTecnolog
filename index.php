@@ -1,8 +1,9 @@
-<!DOCTYPE html>
 <?php
 ob_start();
 require_once './_app/Config.inc.php';
+$Session = new Session;
 ?>
+<!DOCTYPE html>
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
@@ -14,7 +15,7 @@ require_once './_app/Config.inc.php';
         $Link = new Link;
         $Link->getTags();
         ?>
-        
+
         <title>Cidade Online - Eventos, Promoções e Novidades!</title>
 
         <meta name="description" content="Descrição do site AQUI">
@@ -33,11 +34,11 @@ require_once './_app/Config.inc.php';
 
         <?php
         require(REQUIRE_PATH . '/inc/header.inc.php');
-        
-        if(!require($Link->getPatch())):
+
+        if (!require($Link->getPatch())):
             WSErro('Erro ao incluir arquivo de navegação!', WS_ERROR, true);
         endif;
-        
+
         require(REQUIRE_PATH . '/inc/footer.inc.php');
         ?>
 
@@ -46,6 +47,7 @@ require_once './_app/Config.inc.php';
     <script src="<?= HOME ?>/_cdn/jquery.js"></script>
     <script src="<?= HOME ?>/_cdn/jcycle.js"></script>
     <script src="<?= HOME ?>/_cdn/jmask.js"></script>
+    <script src="<?= HOME ?>/_cdn/combo.js"></script>
     <script src="<?= HOME ?>/_cdn/shadowbox/shadowbox.js"></script>
     <script src="<?= HOME ?>/_cdn/_plugins.conf.js"></script>
     <script src="<?= HOME ?>/_cdn/_scripts.conf.js"></script>
@@ -53,4 +55,3 @@ require_once './_app/Config.inc.php';
 </html><!--NTk4Nw==-->
 <?php
 ob_end_flush();
-?>

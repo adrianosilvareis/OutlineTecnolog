@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 require('../_app/Config.inc.php');
 
@@ -92,9 +93,9 @@ endif;
             <?php
             //QUERY STRING
             if (!empty($getexe)):
-                $includepatch = __DIR__ . '\\system\\' . strip_tags(trim($getexe) . '.php');
+                $includepatch = __DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . strip_tags(trim($getexe) . '.php');
             else:
-                $includepatch = __DIR__ . '\\system\\home.php';
+                $includepatch = __DIR__ . DIRECTORY_SEPARATOR . 'system' . DIRECTORY_SEPARATOR . 'home.php';
             endif;
 
             if (file_exists($includepatch)):
@@ -121,3 +122,5 @@ endif;
     <script src="__jsc/admin.js"></script>
 
 </html>
+<?php
+ob_end_flush();
