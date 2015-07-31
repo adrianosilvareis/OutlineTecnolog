@@ -159,7 +159,7 @@ class Upload {
         $FileName = Check::Name($this->Name) . strrchr($this->File['name'], '.');
 
         if (file_exists(self::$BaseDir . $this->Send . $FileName)):
-            $FileName = Check::Nome($this->Name) . '-' . time() . strrchr($this->File['name'], '.');
+            $FileName = Check::Name($this->Name) . '-' . time() . strrchr($this->File['name'], '.');
         endif;
         $this->Name = $FileName;
     }

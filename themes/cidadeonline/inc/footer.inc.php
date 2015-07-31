@@ -30,7 +30,6 @@
                 $Contato['DestinoEmail'] = 'adriano@tommasi.com.br';
                 $SendMail = new Email;
                 $SendMail->Enviar($Contato);
-                var_dump($SendMail);
                 if ($SendMail->getError()):
                     WSErro($SendMail->getError()[0], $SendMail->getError()[1]);
                 endif;

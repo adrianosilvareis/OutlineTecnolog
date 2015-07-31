@@ -9,7 +9,7 @@
 
         <?php
         if (isset($Link->getLocal()[1]) && $Link->getLocal()[1] == 'create'):
-            WSErro("Tudo certo meu querido! Sua empresa foi cadastrada com sucesso. Lembre que esse é apenas uma página de exemplo, então assim que eu ver esse cadastro eu atibo ele pra você!", WS_ACCEPT);
+            WSErro("Tudo certo meu querido! Sua empresa foi cadastrada com sucesso. Lembre que esse é apenas uma página de exemplo, então assim que eu ver esse cadastro eu ativo ele pra você!", WS_ACCEPT);
             WSErro("Moderação: O cadastro é moderado, logo esse só vai para o site depois da ativação pelo ADMIN!", WS_ALERT);
         endif;
 

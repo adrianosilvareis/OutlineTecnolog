@@ -17,7 +17,7 @@ endif;
             <header>
                 <div class="img capa">
                     <!--w = 578px  [ CRIAR THUMB ]-->
-                    <?= Check::Image('uploads' . DIRECTORY_SEPARATOR . $empresa_capa, $empresa_title, 578); ?>
+                    <?= Check::Image('uploads' . DIRECTORY_SEPARATOR . $empresa_capa, $empresa_title, 578, 288); ?>
                 </div>
 
                 <hgroup>
