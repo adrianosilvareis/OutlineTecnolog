@@ -37,7 +37,9 @@ define('SITENAME', 'Cidade Online');
 define('SITEDESC', 'Este site foi desenvolvido por Adriano Reis em treinamento por Robson v. Leite UPINSIDE ');
 
 //DEFINE A HOME DO SITE #########################
-define('HOME', 'http://localhost:1989/OutlineTecnolog');
+define('HTTP_HOST', 'http://' . $_SERVER['HTTP_HOST']);
+define('NAME', '/OutlineTecnolog');
+define('HOME',HTTP_HOST . NAME);
 define('THEME', 'cidadeonline');
 define('INCLUDE_PATH', HOME . DIRECTORY_SEPARATOR . 'themes' . DIRECTORY_SEPARATOR . THEME);
 define('REQUIRE_PATH', 'themes' . DIRECTORY_SEPARATOR . THEME);
