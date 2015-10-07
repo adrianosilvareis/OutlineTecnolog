@@ -13,7 +13,7 @@
         </div><!-- banner -->
 
         <nav class="main-nav">
-
+            
             <ul class="top">
                 <li><a href="<?= HOME ?>" title="">Home</a></li>
                 <li><a href="<?= HOME ?>/categoria/noticias" title="">Cidade Online</a>
@@ -41,7 +41,7 @@
                         <input class="btn" type="submit" name="sendsearch" value="" />
                     </form>
                 </li>
-
+                
             </ul>
         </nav> <!-- main nav -->
 

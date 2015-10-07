@@ -2,6 +2,7 @@
 
 require '_app/Library/PHPMailer/class.phpmailer.php';
 require '_app/Library/PHPMailer/class.smtp.php';
+require '_app/Library/PHPMailer/class.pop3.php';
 
 /**
  * Email.class.php [MODEL]
@@ -91,7 +92,7 @@ class Email {
         //SMTP AUTH
         $this->Mail->isSMTP();
         $this->Mail->SMTPAuth = true;
-        $this->Mail->SMTPSecure = "TLS";
+        $this->Mail->SMTPSecure = "tls";
         $this->Mail->isHTML();
 
         //REMETENTE E RETORNO
